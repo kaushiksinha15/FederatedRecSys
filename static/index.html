@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Federated Recommendation System | Dashboard</title>
+    <!-- Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="background-glow"></div>
+    <div class="container">
+        <header>
+            <div class="title-section">
+                <h1>Federated RecSys</h1>
+                <p>Personalized Transformer Aggregation via Differential Privacy</p>
+            </div>
+            <button id="startBtn" class="btn primary-btn">
+                <span class="btn-text">Start Simulation</span>
+                <div class="btn-glow"></div>
+            </button>
+        </header>
+
+        <main class="dashboard">
+            <!-- Metrics Panel -->
+            <section class="panel metrics-panel">
+                <div class="panel-header">
+                    <h2>Live Metrics</h2>
+                    <span id="status-badge" class="badge idle">Idle</span>
+                </div>
+                
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <h3>Current Round</h3>
+                        <div class="metric-value" id="round-value">0 / 3</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Connected Clients</h3>
+                        <div class="metric-value" id="clients-value">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Global Loss</h3>
+                        <div class="metric-value" id="loss-value">--</div>
+                    </div>
+                </div>
+
+                <div class="cluster-section">
+                    <h3>Trust-Aware Behavioral Clusters</h3>
+                    <div id="cluster-container" class="cluster-container">
+                        <div class="empty-state">Awaiting clustering...</div>
+                    </div>
+                </div>
+                
+                <div class="epsilon-section">
+                    <h3>Privacy-Utility Optimization (Budgets)</h3>
+                    <div id="epsilon-container" class="epsilon-container">
+                        <div class="empty-state">Awaiting clients...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chart Panel -->
+            <section class="panel chart-panel">
+                <div class="panel-header">
+                    <h2>Convergence Graph</h2>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="lossChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Recommendation Panel -->
+            <section class="panel recommendation-panel">
+                <div class="panel-header">
+                    <h2>Get Recommendations</h2>
+                    <div class="rec-tabs">
+                        <button id="tabManual" class="tab-btn active">Manual Input</button>
+                        <button id="tabFile" class="tab-btn">File Upload</button>
+                    </div>
+                </div>
+                
+                <!-- Manual Input Section -->
+                <div id="manualSection" class="rec-section-content active">
+                    <p>Enter a comma-separated sequence of item IDs (e.g., <code>15, 122, 504</code>) to predict the next recommended items.</p>
+                    <div class="input-controls">
+                        <input type="text" id="manualSequenceInput" class="text-input" placeholder="e.g., 12, 45, 87, 203" />
+                        <button id="recommendBtn" class="btn secondary-btn" disabled>
+                            <span class="btn-text">Get Recommendations</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- File Upload Section -->
+                <div id="fileSection" class="rec-section-content">
+                    <p>Upload a CSV file containing user interaction sequences (comma-separated item IDs) to get personalized recommendations using the trained global model.</p>
+                    <div class="upload-controls">
+                        <input type="file" id="csvFileInput" accept=".csv,.txt" class="file-input" />
+                        <button id="uploadBtn" class="btn secondary-btn" disabled>
+                            <span class="btn-text">Get Recommendations</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-section">
+                    <h3>Recommendations</h3>
+                    <div id="recommendations-container" class="recommendations-container">
+                        <div class="empty-state">No recommendations yet. Run simulation first.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Terminal Panel -->
+            <section class="panel terminal-panel">
+                <div class="panel-header">
+                    <h2>System Logs</h2>
+                    <div class="window-controls">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                </div>
+                <div class="terminal-body" id="terminal">
+                    <!-- Logs will be appended here -->
+                    <div class="log-line system">System ready. Awaiting command...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
